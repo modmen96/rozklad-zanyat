@@ -6,33 +6,24 @@
   <meta name="theme-color" content="#f3f0e9">
   <meta name="description" content="Розклад і запис на заняття з камерного ансамблю та квартету.">
   <title>Розклад занять</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Стилі FullCalendar v5 -->
+  <link rel="stylesheet" href="https://cloudflare.com" integrity="sha512-796791E0NdfSSTQv3HnJ62MAnZp6p6vbyA9vT3fS4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     :root {
-      --page: #f3f0e9;
-      --paper: #fbfaf7;
-      --paper-deep: #eae5db;
-      --ink: #292d29;
-      --muted: #777b72;
-      --line: #dedbd2;
-      --accent: #526b5b;
-      --accent-dark: #3f5547;
-      --accent-pale: #e5ebe4;
-      --warm: #c58b62;
-      --shadow: 0 18px 48px rgba(52, 49, 39, .07);
+      --page: #f3f0e9; --paper: #fbfaf7; --paper-deep: #eae5db; --ink: #292d29;
+      --muted: #777b72; --line: #dedbd2; --accent: #526b5b; --accent-dark: #3f5547;
+      --accent-pale: #e5ebe4; --warm: #c58b62; --shadow: 0 18px 48px rgba(52, 49, 39, .07);
     }
     * { box-sizing: border-box; }
     body {
-      color: var(--ink);
-      background:
-        radial-gradient(ellipse at 8% 0%, rgba(197,139,98,.10), transparent 34rem),
-        radial-gradient(ellipse at 100% 20%, rgba(82,107,91,.09), transparent 38rem),
-        var(--page);
-      font-family: "DM Sans", system-ui, sans-serif;
-      letter-spacing: -.012em;
+      color: var(--ink); font-family: "DM Sans", system-ui, sans-serif; letter-spacing: -.012em;
+      background: radial-gradient(ellipse at 8% 0%, rgba(197,139,98,.10), transparent 34rem), radial-gradient(ellipse at 100% 20%, rgba(82,107,91,.09), transparent 38rem), var(--page);
     }
     h1, h2, h3, .brand { font-family: "Manrope", "DM Sans", sans-serif; }
     .site-wrap { max-width: 1100px; }
@@ -40,105 +31,56 @@
     .brand-mark {
       display: inline-grid; place-items: center; width: 38px; height: 38px;
       border-radius: 13px; background: var(--accent); color: #fff;
-      font-family: Georgia, serif; font-size: 1.15rem; font-style: italic;
-      box-shadow: 0 6px 16px rgba(63,85,71,.2);
+      font-family: Georgia, serif; font-size: 1.15rem; font-style: italic; box-shadow: 0 6px 16px rgba(63,85,71,.2);
     }
     .brand { font-size: .92rem; font-weight: 800; letter-spacing: -.035em; }
-    .eyebrow {
-      color: var(--accent); font-size: .72rem; font-weight: 700;
-      letter-spacing: .16em; text-transform: uppercase;
-    }
+    .eyebrow { color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
     .hero { padding-top: clamp(3rem, 8vw, 6rem); padding-bottom: 3rem; }
-    h1 {
-      max-width: 760px; font-size: clamp(2.7rem, 6.5vw, 5.2rem);
-      font-weight: 700; line-height: .99; letter-spacing: -.065em;
-    }
+    h1 { max-width: 760px; font-size: clamp(2.7rem, 6.5vw, 5.2rem); font-weight: 700; line-height: .99; letter-spacing: -.065em; }
     .hero-copy { max-width: 560px; color: var(--muted); font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.75; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: .55rem;
-      padding: .55rem .85rem; border: 1px solid rgba(82,107,91,.2);
-      background: rgba(251,250,247,.68); color: var(--accent-dark);
-      border-radius: 999px; font-size: .82rem; font-weight: 600;
-    }
-    .hero-tag .dot { width: 7px; height: 7px; background: var(--warm); border-radius: 50%; }
-    .hero-art {
-      min-height: 245px; height: 100%; position: relative; overflow: hidden;
-      border-radius: 28px; background: var(--accent); color: #f8f4eb;
-      padding: 2rem; box-shadow: var(--shadow);
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .hero-art:before, .hero-art:after {
-      content: ""; position: absolute; border: 1px solid rgba(248,244,235,.22);
-      border-radius: 50%; pointer-events: none;
-    }
-    .hero-art:before { width: 290px; height: 290px; right: -70px; top: -80px; }
-    .hero-art:after { width: 220px; height: 220px; right: -35px; top: -45px; }
-    .art-label { position: relative; z-index: 1; color: #d7dfd4; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
-    .art-quote { position: relative; z-index: 1; max-width: 260px; font-family: "Manrope", sans-serif; font-size: 1.55rem; line-height: 1.25; font-weight: 600; letter-spacing: -.04em; }
-    .art-foot { position: relative; z-index: 1; color: #d7dfd4; font-size: .8rem; }
     .section-wrap { padding: 1.5rem 0 2.5rem; }
     .section-heading { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem; }
     .section-number {
       flex: 0 0 auto; display: grid; place-items: center; width: 42px; height: 42px;
-      border-radius: 14px; background: var(--accent-pale); color: var(--accent-dark);
-      font-family: "Manrope", sans-serif; font-size: .83rem; font-weight: 800;
+      border-radius: 14px; background: var(--accent-pale); color: var(--accent-dark); font-family: "Manrope", sans-serif; font-size: .83rem; font-weight: 800;
     }
     h2 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-weight: 750; letter-spacing: -.045em; }
     .section-subtitle { color: var(--muted); font-size: .94rem; margin: 0; }
-    .content-card {
-      border: 1px solid rgba(82,89,77,.13); border-radius: 23px;
-      background: var(--paper); box-shadow: var(--shadow); overflow: hidden;
-    }
-    .card-topline {
-      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-      padding: 1rem 1.25rem; border-bottom: 1px solid var(--line);
-      background: rgba(234,229,219,.36);
-    }
+    .content-card { border: 1px solid rgba(82,89,77,.13); border-radius: 23px; background: var(--paper); box-shadow: var(--shadow); overflow: hidden; }
+    .card-topline { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); background: rgba(234,229,219,.36); }
     .card-topline-label { display: flex; align-items: center; gap: .65rem; font-size: .83rem; font-weight: 700; }
-    .mini-icon {
-      display: grid; place-items: center; width: 30px; height: 30px;
-      border-radius: 10px; background: var(--accent-pale); color: var(--accent-dark);
-    }
-    .live-pill {
-      display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .6rem;
-      border-radius: 999px; background: #e7eee4; color: #48634e; font-size: .7rem; font-weight: 700;
-      white-space: nowrap;
-    }
+    .mini-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--accent-pale); color: var(--accent-dark); }
+    .live-pill { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .6rem; border-radius: 999px; background: #e7eee4; color: #48634e; font-size: .7rem; font-weight: 700; white-space: nowrap; }
     .live-pill:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6b936e; }
+    
     .calendar-frame { background: #fff; overflow: hidden; }
     .calendar-frame iframe { display: block; width: 100%; border: 0; background: #fff; }
     .booking-frame iframe { min-height: 800px; }
-    .schedule-frame iframe { min-height: 1200px; }
-    .card-bottom {
-      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
-      padding: 1rem 1.25rem; border-top: 1px solid var(--line); background: #f8f6f1;
+    
+    /* Інтеграція та налаштування FullCalendar */
+    .schedule-frame { background: #fff; padding: 24px; }
+    #calendar { font-family: "DM Sans", system-ui, sans-serif !important; }
+    #calendar .fc-button-primary {
+      background-color: var(--paper) !important; border: 1px solid var(--line) !important; color: var(--ink) !important;
+      font-weight: 600 !important; border-radius: 10px !important; font-size: 0.85rem !important; padding: 8px 16px !important; text-transform: capitalize !important; box-shadow: none !important; transition: background 0.15s ease !important;
     }
-    .note { color: var(--muted); font-size: .86rem; line-height: 1.55; }
-    .btn-book {
-      display: inline-flex; align-items: center; gap: .6rem;
-      background: var(--accent); color: #fff; border: 1px solid var(--accent);
-      border-radius: 999px; padding: .75rem 1.15rem; font-size: .87rem; font-weight: 700;
-      text-decoration: none; transition: transform .18s ease, background .18s ease;
-    }
-    .btn-book:hover { color: #fff; background: var(--accent-dark); transform: translateY(-1px); }
-    .privacy-note {
-      display: flex; gap: .75rem; align-items: flex-start; padding: 1rem 1.1rem;
-      border-radius: 15px; background: rgba(234,229,219,.65); color: var(--muted);
-      font-size: .82rem; line-height: 1.6;
-    }
-    .privacy-note svg { flex: 0 0 auto; margin-top: .1rem; color: var(--accent); }
+    #calendar .fc-button-primary:hover { background-color: var(--paper-deep) !important; }
+    #calendar .fc-button-active { background-color: var(--accent) !important; color: #ffffff !important; border-color: var(--accent) !important; }
+    #calendar .fc-toolbar-title { font-family: "Manrope", sans-serif !important; font-weight: 700 !important; font-size: 1.3rem !important; color: var(--ink) !important; letter-spacing: -.03em !important; }
+    #calendar .fc-list-day-cushion { background-color: rgba(234,229,219,.36) !important; padding: 10px 16px !important; }
+    #calendar .fc-list-day-text, #calendar .fc-list-day-side-text { font-weight: 700 !important; color: var(--accent-dark) !important; text-decoration: none !important; }
+    #calendar .fc-list-event:hover td { background-color: var(--paper-deep) !important; }
+    #calendar .fc-list-event-title a { color: var(--ink) !important; text-decoration: none !important; font-weight: 500 !important; }
+    
     footer { margin-top: 2rem; border-top: 1px solid rgba(82,89,77,.15); }
     .footer-inner { padding-top: 1.5rem; padding-bottom: 1.8rem; color: var(--muted); font-size: .82rem; }
+    
     @media (max-width: 767.98px) {
       .hero { padding-top: 3rem; padding-bottom: 2rem; }
-      .hero-art { min-height: 190px; padding: 1.5rem; }
-      .art-quote { font-size: 1.3rem; }
+      .card-topline { padding: .9rem 1rem; }
       .booking-frame iframe { min-height: 800px; }
-      .schedule-frame iframe { min-height: 1200px; }
-      .card-topline, .card-bottom { padding: .9rem 1rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      .schedule-frame { padding: 12px; }
+      #calendar .fc-toolbar { flex-direction: column !important; gap: 10px !important; }
     }
   </style>
 </head>
@@ -154,18 +96,19 @@
   </header>
 
   <main class="container site-wrap">
+    <!-- HERO SECTION -->
     <section class="hero">
       <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-7">
           <div class="eyebrow mb-3">Заняття · Репетиції</div>
-           <h1 class="mb-4">РОЗКЛАД ЗАНЯТЬ</h1>
+          <h1 class="mb-4">РОЗКЛАД ЗАНЯТЬ</h1>
           <p class="hero-copy mb-4">Оберіть зручну годину для заняття та перевірте актуальний розклад, перш ніж бронювати час.</p>
-          <span class="hero-tag"><span class="dot"></span> Запис онлайн, у кілька кроків</span>
         </div>
       </div>
     </section>
 
-    <section class="section-wrap">
+    <!-- БЛОК 01: ЗАПИС НА ЗАНЯТТЯ (Cal.com) -->
+    <section class="section-wrap pt-2">
       <div class="section-heading">
         <div class="section-number">01</div>
         <div>
@@ -173,7 +116,6 @@
           <p class="section-subtitle">Оберіть доступний слот у календарі нижче.</p>
         </div>
       </div>
-
       <div class="content-card">
         <div class="card-topline">
           <div class="card-topline-label">
@@ -183,36 +125,12 @@
           <span class="live-pill">Календар Cal.com</span>
         </div>
         <div class="calendar-frame booking-frame">
- 
-  <!-- Ваш оригінальний div для календаря -->
-  <div style="width: 100%; height: 100%; overflow: scroll;" id="my-cal-inline-lesson"></div>
-
-<!-- Далі йде ваш незмінний скрипт Cal.com -->
-<script type="text/javascript">
-  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", "lesson", {origin:"https://app.cal.com"});
-Cal.config = Cal.config || {};
-Cal.config.forwardQueryParams = true;
-
-  Cal.ns.lesson("inline", {
-    elementOrSelector:"#my-cal-inline-lesson",
-    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"},
-    calLink: "modest-mentsinskyy/lesson",
-  });
-
-  Cal.ns.lesson("ui", {"theme":"light","hideEventTypeDetails":false,"layout":"month_view"});
-  </script>
-        </div>
-        <div class="card-bottom">
-          <p class="note mb-0">Якщо у вас спостерігаються якісь проблеми з календарем, пряме посилання на стару версію календаря знаходиться нижче. Кнопка "Попередня сторінка запису".</p>
-          <a class="btn-book" target="_blank" rel="noopener"
-             href="https://calendar.app.google/4JVvpJzyGBejZ2Z1A">
-            Попередня сторінка запису <span aria-hidden="true">↗</span>
-          </a>
+          <iframe src="https://cal.com" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </section>
 
+    <!-- БЛОК 02: ЗАПЛАНОВАНІ ЗАНЯТТЯ (Google Calendar / FullCalendar) -->
     <section class="section-wrap pt-2">
       <div class="section-heading">
         <div class="section-number">02</div>
@@ -221,7 +139,6 @@ Cal.config.forwardQueryParams = true;
           <p class="section-subtitle">Перегляньте зайняті години перед вибором часу.</p>
         </div>
       </div>
-
       <div class="content-card">
         <div class="card-topline">
           <div class="card-topline-label">
@@ -231,106 +148,7 @@ Cal.config.forwardQueryParams = true;
           <span class="live-pill">Календар Google</span>
         </div>
         <div class="calendar-frame schedule-frame">
-
-  <!-- Стилі FullCalendar v5 (завантажуються першими) -->
-  <link rel="stylesheet" href="https://cloudflare.com" integrity="sha512-796791E0NdfSSTQv3HnJ62MAnZp6p6vbyA9vT3fS4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  <!-- Контейнер для календаря з фіксованими стилями захисту -->
-  <div id="modern-calendar-wrapper">
-    <div id="calendar"></div>
-  </div>
-
-  <!-- Скрипти FullCalendar v5 та плагін для Google -->
-  <script src="https://cloudflare.com" integrity="sha512-5vXgXwX3J5y4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cloudflare.com"></script>
-  <script src="https://cloudflare.com"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      
-      if (!calendarEl) return;
-
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'listMonth', // Вигляд списку занять
-        locale: 'uk',
-        firstDay: 1,
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'listMonth,timeGridWeek'
-        },
-        buttonText: {
-          today: 'Сьогодні',
-          week: 'Тиждень',
-          list: 'Розклад'
-        },
-        // Публічний календар
-        googleCalendarId: 'modest.mentsinskyy@gmail.com',
-        
-        eventClick: function(info) {
-          info.jsEvent.preventDefault(); // Заборона переходу на сайт Google
-        },
-        eventDidMount: function(info) {
-          // Автоматично фарбуємо маркери в помаранчевий колір вашого сайту
-          if (info.el.querySelector('.fc-list-event-dot')) {
-            info.el.querySelector('.fc-list-event-dot').style.borderColor = '#ef6c00';
-          }
-        }
-      });
-
-      calendar.render();
-    });
-  </script>
-
-  <style>
-    /* Ізолюємо календар від зовнішніх стилів сайту, щоб нічого не розповзалося */
-    #modern-calendar-wrapper {
-      background: #ffffff !important;
-      padding: 15px !important;
-      border-radius: 12px !important;
-      border: 1px solid #eef2f5 !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    
-    /* Примусовий базовий шрифт */
-    #calendar {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    }
-
-    /* Стиль для кнопок, щоб вони не виглядали як звичайний дефолтний текст */
-    #calendar .fc-button {
-      background-color: #f3f4f6 !important;
-      border: 1px solid #e5e7eb !important;
-      color: #1f2937 !important;
-      padding: 6px 12px !important;
-      font-weight: 500 !important;
-      border-radius: 6px !important;
-      text-transform: capitalize !important;
-      box-shadow: none !important;
-      cursor: pointer !important;
-    }
-
-    #calendar .fc-button:hover {
-      background-color: #e5e7eb !important;
-    }
-
-    /* Колір активного перемикача (Помаранчевий) */
-    #calendar .fc-button-active {
-      background-color: #ef6c00 !important;
-      color: #ffffff !important;
-      border-color: #ef6c00 !important;
-    }
-
-    /* Охайний вигляд плашок з датами */
-    #calendar .fc-list-day-cushion {
-      background-color: #f9fafb !important;
-      padding: 8px 14px !important;
-    }
-  </style>
-</div>
-
+          <div id="calendar"></div>
         </div>
       </div>
     </section>
@@ -342,5 +160,16 @@ Cal.config.forwardQueryParams = true;
       <span>Створено для зручного запису студентів</span>
     </div>
   </footer>
-</body>
-</html>
+
+  <!-- СКРИПТИ ДЛЯ РОБОТИ КАЛЕНДАРЯ -->
+  <script src="https://cloudflare.com" integrity="sha512-5vXgXwX3J5y4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cloudflare.com"></script>
+  <script src="https://cloudflare.com"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      if (!calendarEl) return;
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'listMonth',
