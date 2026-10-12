@@ -173,6 +173,16 @@
           <p class="section-subtitle">Оберіть доступний слот у календарі нижче.</p>
         </div>
       </div>
+
+      <div class="content-card">
+        <div class="card-topline">
+          <div class="card-topline-label">
+            <span class="mini-icon" aria-hidden="true">↗</span>
+            <span>Календар бронювання</span>
+          </div>
+          <span class="live-pill">Cal.com календар</span>
+        </div>
+        <div class="calendar-frame booking-frame">
 <!-- Контейнер-обгортка із відносним позиціонуванням -->
 <div style="position: relative; width: 100%; height: 100%; max-height: 700px;">
   
@@ -202,22 +212,11 @@
   Cal.ns["60min"]("inline", {
     elementOrSelector:"#my-cal-inline-60min",
     config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"light"},
-    calLink: "modest-mentsinskyy/60min",
+    calLink: "modest-mentsinskyy/lesson",
   });
 
   Cal.ns["60min"]("ui", {"theme":"light","cssVarsPerTheme":{"light":{"cal-brand":"#000000"},"dark":{"cal-brand":"#ffffff"}},"hideEventTypeDetails":false,"layout":"month_view"});
 </script>
-
-      <div class="content-card">
-        <div class="card-topline">
-          <div class="card-topline-label">
-            <span class="mini-icon" aria-hidden="true">↗</span>
-            <span>Календар бронювання</span>
-          </div>
-          <span class="live-pill">Google Calendar</span>
-        </div>
-        <div class="calendar-frame booking-frame">
-
         </div>
         <div class="card-bottom">
           <p class="note mb-0">Якщо у вас спостерігаються якісь проблеми з календарем, пряме посилання на стару версію календаря знаходиться нижче. Кнопка "Перейти до запису".</p>
@@ -244,7 +243,7 @@
             <span class="mini-icon" aria-hidden="true">▦</span>
             <span>Актуальний розклад</span>
           </div>
-          <span class="live-pill">Час: Київ</span>
+          <span class="live-pill">Календар Google</span>
         </div>
         <div class="calendar-frame schedule-frame">
           <!-- Замініть YOUR_PUBLIC_CALENDAR_ID на ID публічного календаря Google. -->
