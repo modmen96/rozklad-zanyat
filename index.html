@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e9">
+  <meta name="description" content="Розклад і запис на заняття з камерного ансамблю.">
+  <title>Розклад занять</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #f3f0e9;
+      --paper: #fbfaf7;
+      --paper-deep: #eae5db;
+      --ink: #292d29;
+      --muted: #777b72;
+      --line: #dedbd2;
+      --accent: #526b5b;
+      --accent-dark: #3f5547;
+      --accent-pale: #e5ebe4;
+      --warm: #c58b62;
+      --shadow: 0 18px 48px rgba(52, 49, 39, .07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 8% 0%, rgba(197,139,98,.10), transparent 34rem),
+        radial-gradient(ellipse at 100% 20%, rgba(82,107,91,.09), transparent 38rem),
+        var(--page);
+      font-family: "DM Sans", system-ui, sans-serif;
+      letter-spacing: -.012em;
+    }
+    h1, h2, h3, .brand { font-family: "Manrope", "DM Sans", sans-serif; }
+    .site-wrap { max-width: 1100px; }
+    .topbar { border-bottom: 1px solid rgba(82, 89, 77, .13); }
+    .brand-mark {
+      display: inline-grid; place-items: center; width: 38px; height: 38px;
+      border-radius: 13px; background: var(--accent); color: #fff;
+      font-family: Georgia, serif; font-size: 1.15rem; font-style: italic;
+      box-shadow: 0 6px 16px rgba(63,85,71,.2);
+    }
+    .brand { font-size: .92rem; font-weight: 800; letter-spacing: -.035em; }
+    .eyebrow {
+      color: var(--accent); font-size: .72rem; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+    }
+    .hero { padding-top: clamp(3rem, 8vw, 6rem); padding-bottom: 3rem; }
+    h1 {
+      max-width: 760px; font-size: clamp(2.7rem, 6.5vw, 5.2rem);
+      font-weight: 700; line-height: .99; letter-spacing: -.065em;
+    }
+    .hero-copy { max-width: 560px; color: var(--muted); font-size: clamp(1rem, 1.7vw, 1.13rem); line-height: 1.75; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .55rem;
+      padding: .55rem .85rem; border: 1px solid rgba(82,107,91,.2);
+      background: rgba(251,250,247,.68); color: var(--accent-dark);
+      border-radius: 999px; font-size: .82rem; font-weight: 600;
+    }
+    .hero-tag .dot { width: 7px; height: 7px; background: var(--warm); border-radius: 50%; }
+    .hero-art {
+      min-height: 245px; height: 100%; position: relative; overflow: hidden;
+      border-radius: 28px; background: var(--accent); color: #f8f4eb;
+      padding: 2rem; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .hero-art:before, .hero-art:after {
+      content: ""; position: absolute; border: 1px solid rgba(248,244,235,.22);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-art:before { width: 290px; height: 290px; right: -70px; top: -80px; }
+    .hero-art:after { width: 220px; height: 220px; right: -35px; top: -45px; }
+    .art-label { position: relative; z-index: 1; color: #d7dfd4; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+    .art-quote { position: relative; z-index: 1; max-width: 260px; font-family: "Manrope", sans-serif; font-size: 1.55rem; line-height: 1.25; font-weight: 600; letter-spacing: -.04em; }
+    .art-foot { position: relative; z-index: 1; color: #d7dfd4; font-size: .8rem; }
+    .section-wrap { padding: 1.5rem 0 2.5rem; }
+    .section-heading { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem; }
+    .section-number {
+      flex: 0 0 auto; display: grid; place-items: center; width: 42px; height: 42px;
+      border-radius: 14px; background: var(--accent-pale); color: var(--accent-dark);
+      font-family: "Manrope", sans-serif; font-size: .83rem; font-weight: 800;
+    }
+    h2 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); font-weight: 750; letter-spacing: -.045em; }
+    .section-subtitle { color: var(--muted); font-size: .94rem; margin: 0; }
+    .content-card {
+      border: 1px solid rgba(82,89,77,.13); border-radius: 23px;
+      background: var(--paper); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .card-topline {
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--line);
+      background: rgba(234,229,219,.36);
+    }
+    .card-topline-label { display: flex; align-items: center; gap: .65rem; font-size: .83rem; font-weight: 700; }
+    .mini-icon {
+      display: grid; place-items: center; width: 30px; height: 30px;
+      border-radius: 10px; background: var(--accent-pale); color: var(--accent-dark);
+    }
+    .live-pill {
+      display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .6rem;
+      border-radius: 999px; background: #e7eee4; color: #48634e; font-size: .7rem; font-weight: 700;
+      white-space: nowrap;
+    }
+    .live-pill:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6b936e; }
+    .calendar-frame { background: #fff; overflow: hidden; }
+    .calendar-frame iframe { display: block; width: 100%; border: 0; background: #fff; }
+    .booking-frame iframe { min-height: 700px; }
+    .schedule-frame iframe { min-height: 620px; }
+    .card-bottom {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1rem 1.25rem; border-top: 1px solid var(--line); background: #f8f6f1;
+    }
+    .note { color: var(--muted); font-size: .86rem; line-height: 1.55; }
+    .btn-book {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--accent); color: #fff; border: 1px solid var(--accent);
+      border-radius: 999px; padding: .75rem 1.15rem; font-size: .87rem; font-weight: 700;
+      text-decoration: none; transition: transform .18s ease, background .18s ease;
+    }
+    .btn-book:hover { color: #fff; background: var(--accent-dark); transform: translateY(-1px); }
+    .privacy-note {
+      display: flex; gap: .75rem; align-items: flex-start; padding: 1rem 1.1rem;
+      border-radius: 15px; background: rgba(234,229,219,.65); color: var(--muted);
+      font-size: .82rem; line-height: 1.6;
+    }
+    .privacy-note svg { flex: 0 0 auto; margin-top: .1rem; color: var(--accent); }
+    footer { margin-top: 2rem; border-top: 1px solid rgba(82,89,77,.15); }
+    .footer-inner { padding-top: 1.5rem; padding-bottom: 1.8rem; color: var(--muted); font-size: .82rem; }
+    @media (max-width: 767.98px) {
+      .hero { padding-top: 3rem; padding-bottom: 2rem; }
+      .hero-art { min-height: 190px; padding: 1.5rem; }
+      .art-quote { font-size: 1.3rem; }
+      .booking-frame iframe { min-height: 760px; }
+      .schedule-frame iframe { min-height: 570px; }
+      .card-topline, .card-bottom { padding: .9rem 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container site-wrap py-3">
+      <div class="d-flex align-items-center gap-3">
+        <span class="brand-mark" aria-hidden="true">m</span>
+        <div class="brand">КАМЕРНИЙ АНСАМБЛЬ</div>
+        <span class="ms-auto text-secondary small d-none d-sm-inline">Навчальний розклад</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container site-wrap">
+    <section class="hero">
+      <div class="row align-items-center g-4 g-lg-5">
+        <div class="col-lg-7">
+          <div class="eyebrow mb-3">Заняття · Репетиції · Музика</div>
+          <h1 class="mb-4">Знайдіть час<br>для музики.</h1>
+          <p class="hero-copy mb-4">Оберіть зручну годину для заняття та перевірте актуальний розклад, перш ніж бронювати час.</p>
+          <span class="hero-tag"><span class="dot"></span> Запис онлайн, у кілька кроків</span>
+        </div>
+        <div class="col-lg-5">
+          <div class="hero-art">
+            <div class="art-label">Твій час для ансамблю</div>
+            <div class="art-quote">«Музика починається з уважності одне до одного».</div>
+            <div class="art-foot">Розклад занять · Львів</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap">
+      <div class="section-heading">
+        <div class="section-number">01</div>
+        <div>
+          <h2 class="mb-1">Запис на заняття</h2>
+          <p class="section-subtitle">Оберіть доступний слот у календарі нижче.</p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="card-topline">
+          <div class="card-topline-label">
+            <span class="mini-icon" aria-hidden="true">↗</span>
+            <span>Календар бронювання</span>
+          </div>
+          <span class="live-pill">Google Calendar</span>
+        </div>
+        <div class="calendar-frame booking-frame">
+          <iframe
+            src="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3HMEbz4Rcval3Z8J8v7UtFCDFSIhC9j3y2pep_sQj158Imp4Je_-9kN1s9z94NWXImB0v4Ko3h?gv=true&amp;ctz=Europe/Kiev"
+            title="Календар запису на заняття"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+        <div class="card-bottom">
+          <p class="note mb-0">Якщо календар не завантажився, відкрийте сторінку запису окремо.</p>
+          <a class="btn-book" target="_blank" rel="noopener"
+             href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3HMEbz4Rcval3Z8J8v7UtFCDFSIhC9j3y2pep_sQj158Imp4Je_-9kN1s9z94NWXImB0v4Ko3h?gv=true&amp;ctz=Europe/Kiev">
+            Перейти до запису <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap pt-2">
+      <div class="section-heading">
+        <div class="section-number">02</div>
+        <div>
+          <h2 class="mb-1">Заплановані заняття</h2>
+          <p class="section-subtitle">Перегляньте зайняті години перед вибором часу.</p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <div class="card-topline">
+          <div class="card-topline-label">
+            <span class="mini-icon" aria-hidden="true">▦</span>
+            <span>Актуальний розклад</span>
+          </div>
+          <span class="live-pill">Час: Київ</span>
+        </div>
+        <div class="calendar-frame schedule-frame">
+          <!-- Замініть YOUR_PUBLIC_CALENDAR_ID на ID публічного календаря Google. -->
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=YOUR_PUBLIC_CALENDAR_ID&amp;ctz=Europe%2FKyiv&amp;hl=uk&amp;mode=WEEK&amp;showTitle=0&amp;showPrint=0&amp;showTabs=1&amp;showCalendars=0&amp;showTz=0"
+            title="Календар запланованих занять"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="privacy-note mt-3">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>У публічному календарі відображаються події, відкриті для перегляду. Щоб не розкривати особисті дані студентів, використовуйте нейтральні назви подій, наприклад «Зайнято».</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container site-wrap footer-inner d-flex flex-column flex-sm-row justify-content-between gap-2">
+      <span>Камерний ансамбль · Розклад занять</span>
+      <span>Створено для зручного запису студентів</span>
+    </div>
+  </footer>
+</body>
+</html>
