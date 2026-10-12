@@ -105,7 +105,7 @@
     white-space: nowrap;
   }
   .live-pill:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6b936e; }
-  .calendar-frame { background: #fff; overflow-x: hidden; max-width: 100%; }
+  .calendar-frame { background: #fff; overflow: hidden; max-width: 100%; }
   .calendar-frame iframe { display: block; width: 100%; border: 0; background: #fff; }
   .booking-frame iframe { min-height: 800px; }
   .schedule-frame iframe { min-height: 1200px; }
@@ -114,6 +114,7 @@
   #schedule-calendar { 
     min-height: 650px; 
     padding: 1.25rem; 
+    overflow: hidden;
   }
   #schedule-calendar .fc { 
     --fc-border-color: var(--line); 
@@ -142,6 +143,18 @@
   }
   #schedule-calendar .fc .fc-list-event:hover td { 
     background: var(--accent-pale); 
+  }
+
+  /* Виправлення обрізання тексту подій та імен у списку */
+  #schedule-calendar .fc-list-event-title,
+  #schedule-calendar .fc-list-event-time,
+  #schedule-calendar .fc-list-day-text,
+  #schedule-calendar .fc-list-day-side-text {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+  #schedule-calendar .fc-list-table td {
+    white-space: normal !important;
   }
 
   .card-bottom {
@@ -196,7 +209,19 @@
       padding: .35rem .65rem; 
       font-size: .78rem; 
     }
-    /* Запобігаємо обрізанню назв подій на малих екранах */
+    
+    /* Адаптація колонок таблиці списку на мобільних для повного відображення імен */
+    #schedule-calendar .fc-list-table {
+      table-layout: fixed;
+      width: 100%;
+    }
+    #schedule-calendar .fc-list-event-time {
+      width: 32%;
+      padding-right: 4px !important;
+    }
+    #schedule-calendar .fc-list-event-title {
+      width: 68%;
+    }
     .fc-event-title, .fc-list-event-title {
       white-space: normal !important;
       overflow-wrap: break-word;
@@ -251,10 +276,8 @@
         </div>
         <div class="calendar-frame booking-frame">
  
-  <!-- Ваш оригінальний div для календаря -->
   <div style="width: 100%; height: 100%; overflow: scroll;" id="my-cal-inline-lesson"></div>
 
-<!-- Далі йде ваш незмінний скрипт Cal.com -->
 <script type="text/javascript">
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 Cal("init", "lesson", {origin:"https://app.cal.com"});
@@ -298,7 +321,6 @@ Cal.config.forwardQueryParams = true;
           <span class="live-pill">Календар Google</span>
         </div>
        <div class="calendar-frame schedule-frame">
-  <!-- ЗАМІНЕНО: тепер замість звичайного div використовується кастомний тег v7 -->
   <full-calendar id="schedule-calendar" aria-label="Календар запланованих занять"></full-calendar>
   
   <p id="calendar-error" class="note px-3 pb-3 mb-0" role="status" hidden>
@@ -315,7 +337,7 @@ Cal.config.forwardQueryParams = true;
       <span>Створено для зручного запису студентів</span>
     </div>
   </footer>
-<!-- Скрипти залишаються без змін, як у вашому коді -->
+
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/skeleton.styles.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/themes/monarch/theme.styles.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/themes/monarch/palettes/green.css" rel="stylesheet" />
@@ -370,25 +392,28 @@ Cal.config.forwardQueryParams = true;
 
     calendarEl.options = calendarOptions;
 
-    // Примусова перевірка та заміна англійських текстів на українські, 
-    // якщо плагін перебиває локаль своєю стандартною англійською
+    // Примусова перевірка та заміна англійських текстів на українські всередині shadowRoot
     setTimeout(function() {
-      const observer = new MutationObserver(function() {
-        // Заміна кнопок та текстів, якщо вони лишилися англійськими
-        const buttons = calendarEl.shadowRoot ? calendarEl.shadowRoot.querySelectorAll('button') : document.querySelectorAll('.fc-button');
+      const applyTranslations = () => {
+        if (!calendarEl.shadowRoot) return;
+        const buttons = calendarEl.shadowRoot.querySelectorAll('button');
         buttons.forEach(btn => {
-          if (btn.textContent.trim() === 'today') btn.textContent = 'Сьогодні';
-          if (btn.textContent.trim() === 'month') btn.textContent = 'Місяць';
-          if (btn.textContent.trim() === 'week') btn.textContent = 'Тиждень';
-          if (btn.textContent.trim() === 'day') btn.textContent = 'День';
-          if (btn.textContent.trim() === 'list') btn.textContent = 'Список';
+          const text = btn.textContent.trim().toLowerCase();
+          if (text === 'today') btn.textContent = 'Сьогодні';
+          if (text === 'month') btn.textContent = 'Місяць';
+          if (text === 'week') btn.textContent = 'Тиждень';
+          if (text === 'day') btn.textContent = 'День';
+          if (text === 'list') btn.textContent = 'Список';
         });
-      });
-      
+      };
+
+      applyTranslations();
+
       if (calendarEl.shadowRoot) {
+        const observer = new MutationObserver(applyTranslations);
         observer.observe(calendarEl.shadowRoot, { childList: true, subtree: true });
       }
-    }, 500);
+    }, 400);
   });
 </script>
 </body>
