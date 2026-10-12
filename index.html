@@ -340,7 +340,6 @@ Cal.config.forwardQueryParams = true;
       slotMaxTime: '18:00:00',
       slotDuration: '00:30:00',
       
-      // Повний переклад системних написів
       buttonText: {
         today: 'Сьогодні',
         month: 'Місяць',
@@ -349,7 +348,6 @@ Cal.config.forwardQueryParams = true;
         list: 'Список'
       },
       
-      // Переклад написів на випадок відсутності подій
       noEventsText: 'Немає подій для відображення',
 
       headerToolbar: {
@@ -371,6 +369,26 @@ Cal.config.forwardQueryParams = true;
     };
 
     calendarEl.options = calendarOptions;
+
+    // Примусова перевірка та заміна англійських текстів на українські, 
+    // якщо плагін перебиває локаль своєю стандартною англійською
+    setTimeout(function() {
+      const observer = new MutationObserver(function() {
+        // Заміна кнопок та текстів, якщо вони лишилися англійськими
+        const buttons = calendarEl.shadowRoot ? calendarEl.shadowRoot.querySelectorAll('button') : document.querySelectorAll('.fc-button');
+        buttons.forEach(btn => {
+          if (btn.textContent.trim() === 'today') btn.textContent = 'Сьогодні';
+          if (btn.textContent.trim() === 'month') btn.textContent = 'Місяць';
+          if (btn.textContent.trim() === 'week') btn.textContent = 'Тиждень';
+          if (btn.textContent.trim() === 'day') btn.textContent = 'День';
+          if (btn.textContent.trim() === 'list') btn.textContent = 'Список';
+        });
+      });
+      
+      if (calendarEl.shadowRoot) {
+        observer.observe(calendarEl.shadowRoot, { childList: true, subtree: true });
+      }
+    }, 500);
   });
 </script>
 </body>
