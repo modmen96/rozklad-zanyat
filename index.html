@@ -231,10 +231,7 @@ Cal.config.forwardQueryParams = true;
           <span class="live-pill">Календар Google</span>
         </div>
         <div class="calendar-frame schedule-frame">
-        <!-- Контейнер для нового сучасного календаря -->
-<div id="modern-calendar-container">
   <div id="calendar"></div>
-</div>
 
 <!-- Підключення безкоштовної бібліотеки FullCalendar та стилів -->
 <link rel="stylesheet"
@@ -244,78 +241,57 @@ Cal.config.forwardQueryParams = true;
 
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@7.1.1/global.js"></script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      // Вигляд за замовчуванням: список (агенда), як на вашому скріншоті
-      initialView: 'listMonth', 
-      locale: 'uk', // Українська мова інтерфейсу
-      firstDay: 1, // Понеділок — перший день тижня
+<style>
+  #calendar {
+    width: 100%;
+    min-height: 600px;
+    font-family: inherit;
+  }
+
+  @media (max-width: 600px) {
+    #calendar {
+      min-height: 520px;
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const calendar = new FullCalendar.Calendar(
+    document.getElementById('calendar'),
+    {
+      initialView: 'timeGridWeek',
+      locale: 'uk',
+      firstDay: 1,
+      height: 'auto',
+      expandRows: true,
+      nowIndicator: true,
+      allDaySlot: false,
+      slotMinTime: '08:00:00',
+      slotMaxTime: '22:00:00',
+      slotDuration: '00:30:00',
+      scrollTime: '09:00:00',
+      timeZone: 'Europe/Kyiv',
+
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'listMonth,timeGridWeek' // Студенти зможуть перемикати: список або сітка на тиждень
+        right: 'timeGridWeek,dayGridMonth,listWeek'
       },
-      buttonText: {
-        today: 'Сьогодні',
-        month: 'Місяць',
-        week: 'Тиждень',
-        list: 'Розклад'
-      },
-      // Підключення вашого Google Календаря
-      googleCalendarApiKey: 'AIzaSyDnUQieJw9_8RyO1eroG5LkNuYZNSq04w4', // Тут ключ НЕ потрібен, якщо календар повністю публічний
+
+      googleCalendarApiKey: 'AIzaSyDnUQieJw9_8RyO1eroG5LkNuYZNSq04w4',
+
       events: {
-        googleCalendarId: 'modest.mentsinskyy@gmail.com' // <-- ВСТАВТЕ СЮДИ ID З КРОКУ 1
-      },
-      // Обробка кліку на заняття (щоб не перекидало на сайт Google, якщо це не потрібно)
-      eventClick: function(info) {
-        info.jsEvent.preventDefault(); // Блокує перехід у сервіси Google
+        googleCalendarId: 'modest.mentsinskyy@gmail.com'
       }
-    });
+    }
+  );
 
-    calendar.render();
-  });
+  calendar.render();
+});
 </script>
-
-<style>
-  /* Стилізація контейнера календаря під дизайн вашого сайту */
-  #modern-calendar-container {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    border: 1px solid #eef2f5;
-    font-family: system-ui, -apple-system, sans-serif;
-    max-width: 900px;
-    margin: 20px auto;
-  }
-
-  /* Налаштування кольорів кнопок FullCalendar, щоб вони виглядали сучасно */
-  .fc .fc-button-primary {
-    background-color: #f3f4f6 !important;
-    border-color: #e5e7eb !important;
-    color: #1f2937 !important;
-    text-transform: capitalize;
-    font-weight: 500;
-    border-radius: 8px !important;
-  }
-  .fc .fc-button-primary:hover {
-    background-color: #e5e7eb !important;
-  }
-  .fc .fc-button-active {
-    background-color: #0070f3 !important; /* Фірмовий синій акцент для активної кнопки */
-    color: #ffffff !important;
-    border-color: #0070f3 !important;
-  }
-  .fc-list-day-cushion {
-    background-color: #f9fafb !important; /* Світлий фон для плашок з датами */
-  }
-  .fc-list-event:hover td {
-    background-color: #f3f4f6 !important; /* Ефект наведення на рядок заняття */
-  }
-</style>
         </div>
       </div>
     </section>
