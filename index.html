@@ -109,6 +109,12 @@
     .calendar-frame iframe { display: block; width: 100%; border: 0; background: #fff; }
     .booking-frame iframe { min-height: 800px; }
     .schedule-frame iframe { min-height: 1200px; }
+    #schedule-calendar { min-height: 650px; padding: 1.25rem; }
+    #schedule-calendar .fc { --fc-border-color: var(--line); --fc-button-bg-color: var(--accent); --fc-button-border-color: var(--accent); --fc-button-hover-bg-color: var(--accent-dark); --fc-button-hover-border-color: var(--accent-dark); --fc-button-active-bg-color: var(--accent-dark); --fc-today-bg-color: rgba(82,107,91,.09); color: var(--ink); }
+    #schedule-calendar .fc .fc-toolbar-title { font-family: "Manrope", sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: -.04em; }
+    #schedule-calendar .fc .fc-button { border-radius: 999px; box-shadow: none; text-transform: none; }
+    #schedule-calendar .fc .fc-event { cursor: default; border-radius: 5px; }
+    #schedule-calendar .fc .fc-list-event:hover td { background: var(--accent-pale); }
     .card-bottom {
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
       padding: 1rem 1.25rem; border-top: 1px solid var(--line); background: #f8f6f1;
@@ -135,6 +141,16 @@
       .art-quote { font-size: 1.3rem; }
       .booking-frame iframe { min-height: 800px; }
       .schedule-frame iframe { min-height: 1200px; }
+      #schedule-calendar { min-height: 580px; padding: .75rem; }
+      #schedule-calendar .fc .fc-toolbar { flex-wrap: wrap; gap: .5rem; }
+      #schedule-calendar .fc .fc-toolbar-title { font-size: 1.05rem; }
+      #schedule-calendar .fc .fc-button { padding: .35rem .55rem; font-size: .8rem; }
+    #schedule-calendar { min-height: 650px; padding: 1.25rem; }
+    #schedule-calendar .fc { --fc-border-color: var(--line); --fc-button-bg-color: var(--accent); --fc-button-border-color: var(--accent); --fc-button-hover-bg-color: var(--accent-dark); --fc-button-hover-border-color: var(--accent-dark); --fc-button-active-bg-color: var(--accent-dark); --fc-today-bg-color: rgba(82,107,91,.09); color: var(--ink); }
+    #schedule-calendar .fc .fc-toolbar-title { font-family: "Manrope", sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: -.04em; }
+    #schedule-calendar .fc .fc-button { border-radius: 999px; box-shadow: none; text-transform: none; }
+    #schedule-calendar .fc .fc-event { cursor: default; border-radius: 5px; }
+    #schedule-calendar .fc .fc-list-event:hover td { background: var(--accent-pale); }
       .card-topline, .card-bottom { padding: .9rem 1rem; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -230,15 +246,14 @@ Cal.config.forwardQueryParams = true;
           </div>
           <span class="live-pill">Календар Google</span>
         </div>
-        <div class="calendar-frame schedule-frame">
-          <!-- Замініть YOUR_PUBLIC_CALENDAR_ID на ID публічного календаря Google. -->
-          <iframe
-            src="https://calendar.google.com/calendar/embed?height=1100&wkst=2&ctz=Europe%2FKyiv&showPrint=0&mode=AGENDA&src=bW9kZXN0Lm1lbnRzaW5za3l5QGdtYWlsLmNvbQ&color=%23ef6c00"
-            title="Календар запланованих занять"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin">
-          </iframe>
-        </div>
+       <div class="calendar-frame schedule-frame">
+  <!-- ЗАМІНЕНО: тепер замість звичайного div використовується кастомний тег v7 -->
+  <full-calendar id="schedule-calendar" aria-label="Календар запланованих занять"></full-calendar>
+  
+  <p id="calendar-error" class="note px-3 pb-3 mb-0" role="status" hidden>
+    Не вдалося завантажити події. Перевірте API-ключ Google Calendar та налаштування доступу до календаря.
+  </p>
+</div>
       </div>
     </section>
   </main>
@@ -249,5 +264,61 @@ Cal.config.forwardQueryParams = true;
       <span>Створено для зручного запису студентів</span>
     </div>
   </footer>
+<!-- Скрипти залишаються без змін, як у вашому коді -->
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/skeleton.styles.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/themes/monarch/theme.styles.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/themes/monarch/palettes/green.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/all/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/web-component@7.1.1/themes/monarch/global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@7.1.1/global.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Отримуємо посилання безпосередньо на наш веб-компонент
+    const calendarEl = document.getElementById('schedule-calendar');
+    const errorEl = document.getElementById('calendar-error');
+
+    // Формуємо об'єкт конфігурації згідно з документацією v7
+    const calendarOptions = {
+      // Автоматичне перемикання вигляду залежно від ширини екрана
+      initialView: 'listWeek',
+      locale: 'uk',
+      timeZone: 'Europe/Kyiv',
+      firstDay: 1,
+      height: 'auto',
+      nowIndicator: true,
+      dayMaxEvents: true,
+      allDaySlot: true,
+      slotMinTime: '08:00:00',
+      slotMaxTime: '22:00:00',
+      slotDuration: '00:30:00',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,listWeek'
+      },
+      buttonText: {
+          today: 'Сьогодні',
+          month: 'Місяць',
+          week: 'Тиждень',
+          list: 'Список'
+      },
+      // Інтеграція з Google Calendar
+      googleCalendarApiKey: 'AIzaSyDnUQieJw9_8RyO1eroG5LkNuYZNSq04w4',
+      eventSources: [{
+        googleCalendarId: 'modest.mentsinskyy@gmail.com',
+        failure: function () {
+          errorEl.hidden = false;
+        }
+      }],
+      eventClick: function (info) {
+        // Запобігаємо переходу за лінком події з Google Calendar
+        info.jsEvent.preventDefault();
+      }
+    };
+
+    // Передаємо параметри у веб-компонент (ініціалізація та рендер відбуваються автоматично)
+    calendarEl.options = calendarOptions;
+  });
+</script>
 </body>
 </html>
