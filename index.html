@@ -221,7 +221,17 @@ Cal.config.forwardQueryParams = true;
           <p class="section-subtitle">Перегляньте зайняті години перед вибором часу.</p>
         </div>
       </div>
-<!-- Контейнер для нового сучасного календаря -->
+
+      <div class="content-card">
+        <div class="card-topline">
+          <div class="card-topline-label">
+            <span class="mini-icon" aria-hidden="true">▦</span>
+            <span>Актуальний розклад</span>
+          </div>
+          <span class="live-pill">Календар Google</span>
+        </div>
+        <div class="calendar-frame schedule-frame">
+        <!-- Контейнер для нового сучасного календаря -->
 <div id="modern-calendar-container">
   <div id="calendar"></div>
 </div>
@@ -302,23 +312,6 @@ Cal.config.forwardQueryParams = true;
     background-color: #f3f4f6 !important; /* Ефект наведення на рядок заняття */
   }
 </style>
-
-      <div class="content-card">
-        <div class="card-topline">
-          <div class="card-topline-label">
-            <span class="mini-icon" aria-hidden="true">▦</span>
-            <span>Актуальний розклад</span>
-          </div>
-          <span class="live-pill">Календар Google</span>
-        </div>
-        <div class="calendar-frame schedule-frame">
-          <!-- Замініть YOUR_PUBLIC_CALENDAR_ID на ID публічного календаря Google. -->
-          <iframe
-            src="https://calendar.google.com/calendar/embed?height=1100&wkst=2&ctz=Europe%2FKyiv&showPrint=0&mode=AGENDA&src=bW9kZXN0Lm1lbnRzaW5za3l5QGdtYWlsLmNvbQ&color=%23ef6c00"
-            title="Календар запланованих занять"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin">
-          </iframe>
         </div>
       </div>
     </section>
