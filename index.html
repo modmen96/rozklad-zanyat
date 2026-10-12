@@ -231,67 +231,106 @@ Cal.config.forwardQueryParams = true;
           <span class="live-pill">Календар Google</span>
         </div>
         <div class="calendar-frame schedule-frame">
-  <div id="calendar"></div>
 
-<!-- Підключення безкоштовної бібліотеки FullCalendar та стилів -->
-<link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/fullcalendar@7.1.1/skeleton.css">
+  <!-- Стилі FullCalendar v5 (завантажуються першими) -->
+  <link rel="stylesheet" href="https://cloudflare.com" integrity="sha512-796791E0NdfSSTQv3HnJ62MAnZp6p6vbyA9vT3fS4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Контейнер для календаря з фіксованими стилями захисту -->
+  <div id="modern-calendar-wrapper">
+    <div id="calendar"></div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@7.1.1/all/global.js"></script>
+  <!-- Скрипти FullCalendar v5 та плагін для Google -->
+  <script src="https://cloudflare.com" integrity="sha512-5vXgXwX3J5y4M6c0S0fS1S4P2yvYgW0E5f6S3R3F5J2yvYgW0E5f6S3R3A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cloudflare.com"></script>
+  <script src="https://cloudflare.com"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@7.1.1/global.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      
+      if (!calendarEl) return;
 
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'listMonth', // Вигляд списку занять
+        locale: 'uk',
+        firstDay: 1,
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'listMonth,timeGridWeek'
+        },
+        buttonText: {
+          today: 'Сьогодні',
+          week: 'Тиждень',
+          list: 'Розклад'
+        },
+        // Публічний календар
+        googleCalendarId: 'modest.mentsinskyy@gmail.com',
+        
+        eventClick: function(info) {
+          info.jsEvent.preventDefault(); // Заборона переходу на сайт Google
+        },
+        eventDidMount: function(info) {
+          // Автоматично фарбуємо маркери в помаранчевий колір вашого сайту
+          if (info.el.querySelector('.fc-list-event-dot')) {
+            info.el.querySelector('.fc-list-event-dot').style.borderColor = '#ef6c00';
+          }
+        }
+      });
 
-<style>
-  #calendar {
-    width: 100%;
-    min-height: 600px;
-    font-family: inherit;
-  }
+      calendar.render();
+    });
+  </script>
 
-  @media (max-width: 600px) {
+  <style>
+    /* Ізолюємо календар від зовнішніх стилів сайту, щоб нічого не розповзалося */
+    #modern-calendar-wrapper {
+      background: #ffffff !important;
+      padding: 15px !important;
+      border-radius: 12px !important;
+      border: 1px solid #eef2f5 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* Примусовий базовий шрифт */
     #calendar {
-      min-height: 520px;
-      font-size: 12px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     }
-  }
-</style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const calendar = new FullCalendar.Calendar(
-    document.getElementById('calendar'),
-    {
-      initialView: 'timeGridWeek',
-      locale: 'uk',
-      firstDay: 1,
-      height: 'auto',
-      expandRows: true,
-      nowIndicator: true,
-      allDaySlot: false,
-      slotMinTime: '08:00:00',
-      slotMaxTime: '22:00:00',
-      slotDuration: '00:30:00',
-      scrollTime: '09:00:00',
-      timeZone: 'Europe/Kyiv',
-
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridWeek,dayGridMonth,listWeek'
-      },
-
-      googleCalendarApiKey: 'AIzaSyDnUQieJw9_8RyO1eroG5LkNuYZNSq04w4',
-
-      events: {
-        googleCalendarId: 'modest.mentsinskyy@gmail.com'
-      }
+    /* Стиль для кнопок, щоб вони не виглядали як звичайний дефолтний текст */
+    #calendar .fc-button {
+      background-color: #f3f4f6 !important;
+      border: 1px solid #e5e7eb !important;
+      color: #1f2937 !important;
+      padding: 6px 12px !important;
+      font-weight: 500 !important;
+      border-radius: 6px !important;
+      text-transform: capitalize !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
     }
-  );
 
-  calendar.render();
-});
-</script>
+    #calendar .fc-button:hover {
+      background-color: #e5e7eb !important;
+    }
+
+    /* Колір активного перемикача (Помаранчевий) */
+    #calendar .fc-button-active {
+      background-color: #ef6c00 !important;
+      color: #ffffff !important;
+      border-color: #ef6c00 !important;
+    }
+
+    /* Охайний вигляд плашок з датами */
+    #calendar .fc-list-day-cushion {
+      background-color: #f9fafb !important;
+      padding: 8px 14px !important;
+    }
+  </style>
+</div>
+
         </div>
       </div>
     </section>
